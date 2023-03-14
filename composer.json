@@ -1,0 +1,30 @@
+{
+    "name": "spatie/uptime-monitor-app",
+    "description": "A PHP application to monitor uptime and ssl certificates",
+    "keywords": ["uptime", "monitor", "ssl", "certificate", "laravel", "spatie"],
+    "license": "MIT",
+    "type": "project",
+    "require": {
+        "php": "^7.0"
+    },
+    "scripts": {
+        "post-root-package-install": [
+
+        ],
+        "post-create-project-cmd": [
+            "php -r \"file_exists('laravel/.env') || copy('laravel/.env.example', 'laravel/.env');\"",
+            "ln -s laravel/.env .env",
+            "ln -s laravel/config/laravel-uptime-monitor.php configuration.php",
+            "ln -s laravel/artisan artisan",
+            "touch database.sqlite",
+            "cd laravel && composer install --no-dev",
+            "cd laravel && php artisan key:generate",
+            "cd laravel && php artisan optimize",
+            "cd laravel && php artisan migrate --force",
+            "cat post-install-instructions.txt"
+        ]
+    },
+    "config": {
+        "preferred-install": "dist"
+    }
+}
